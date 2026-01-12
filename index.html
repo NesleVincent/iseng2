@@ -2,61 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coquette Cake & Lady Whistledown Society Paper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Birthday Surprise for Ms. Angeline</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-room: #f3f0e9;
+            --bg-pink: #ffdae0;
             --cloth-main: #ffffff;
             --pattern-accent: #d4af37;
             --wood-dark: #3e2723;
             --cake-pink: #ffb7c5;
             --ribbon-color: #d81b60;
-            --lace-white: rgba(255, 255, 255, 0.8);
             --note-paper: #fffcf5;
             --whistledown-bg: #f8f5f0;
         }
 
         body {
-            background-color: #ffdae0;
+            background-color: var(--bg-pink);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            font-family: 'Georgia', serif;
+            padding: 10px;
+            font-family: 'EB Garamond', serif;
+            overflow: hidden; /* Prevents bounce scrolling on mobile */
+            box-sizing: border-box;
         }
 
+        /* --- RESPONSIVE TABLE SCENE --- */
         .table-scene {
             position: relative;
-            width: 600px;
-            height: 600px;
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
             display: flex;
             justify-content: center;
             align-items: center;
+            perspective: 1000px;
         }
 
-        /* --- TABLE --- */
         .table-cloth-top {
             position: absolute;
-            width: 400px;
-            height: 400px;
+            width: 350px; height: 350px;
             background: var(--cloth-main);
             background-image: radial-gradient(var(--pattern-accent) 1.2px, transparent 1.2px);
             background-size: 22px 22px;
             border-radius: 50%;
             transform: rotateX(65deg);
             z-index: 10;
-            top: 70px;
+            top: 60px;
             box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
 
         .cloth-skirt {
             position: absolute;
-            top: 255px;
-            width: 398px;
-            height: 160px;
+            top: 220px;
+            width: 348px; height: 140px;
             background: var(--cloth-main);
             background-image: radial-gradient(var(--pattern-accent) 1.2px, transparent 1.2px);
             background-size: 22px 22px;
@@ -65,25 +67,12 @@
             clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 95% 100%, 90% 80%, 85% 100%, 80% 80%, 75% 100%, 70% 80%, 65% 100%, 60% 80%, 55% 100%, 50% 80%, 45% 100%, 40% 80%, 35% 100%, 30% 80%, 25% 100%, 20% 80%, 15% 100%, 10% 80%, 5% 100%, 0% 80%);
         }
 
-        .table-leg-container {
-            position: absolute;
-            top: 300px;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .leg-column { width: 45px; height: 160px; background: linear-gradient(to right, #2b1b17, var(--wood-dark), #5d4037); border-radius: 10px; }
-        .leg-base { width: 170px; height: 25px; background: var(--wood-dark); border-radius: 50% 50% 10px 10px; margin-top: -15px; }
-
-        /* --- CAKE --- */
+        /* --- PRETTY CAKE --- */
         .cake-anchor {
             position: absolute;
-            top: 120px;
+            top: 110px;
             z-index: 100;
             width: 200px;
-            height: 200px;
             display: flex;
             justify-content: center;
         }
@@ -91,332 +80,189 @@
         .cake-plate {
             position: absolute;
             top: 40px;
-            width: 220px; height: 190px;
-            background: radial-gradient(circle, #ffffff 60%, #f0f0f0 100%);
+            width: 210px; height: 180px;
+            background: #fff;
             border-radius: 50%;
             transform: rotateX(65deg);
-            border: 5px solid #d4af37; /* Gold rim */
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border: 5px solid var(--pattern-accent);
             z-index: 101;
         }
 
         .cake-layer {
             position: absolute;
             background: linear-gradient(to right, #ffc0cb, #ffdae0, #ffc0cb);
-            border-radius: 50% / 20%; /* Creates the cylinder perspective */
-            overflow: hidden; /* Clips the ribbon to the curved edge */
-        }
-
-        /* Decorative Icing/Frosting drips */
-        .cake-layer::after {
-            content: '';
-            position: absolute;
-            top: 5px; width: 100%; height: 20px;
-            background-image: radial-gradient(circle, #fff 50%, transparent 50%);
-            background-size: 15px 15px;
-            background-repeat: repeat-x;
-            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+            border-radius: 50% / 20%;
+            overflow: hidden;
         }
         .layer-bottom { width: 150px; height: 85px; bottom: 45px; z-index: 110; }
         .layer-top { width: 100px; height: 65px; bottom: 105px; z-index: 120; }
 
-        .cake-layer::before {
-            content: '';
+        .ribbon {
             position: absolute;
-            top: 0; width: 100%; height: 35%;
-            background: #fff5f7;
-            border-radius: 50%;
-            border: 1.5px dashed var(--lace-white);
+            bottom: 15%; width: 100%; height: 15px;
+            background: var(--ribbon-color);
+            border-radius: 50% / 50%; 
+            transform: scale(1.1);
         }
 
         .pearl-row {
             position: absolute;
-            bottom: -5px; /* Sits right at the base of the layer */
-            width: 100%;
-            height: 25px;
-            /* Creates a curved row of pearls using a radial gradient background */
-            background-image: radial-gradient(circle, #fff 40%, #ddd 50%, transparent 60%);
-            background-size: 12px 12px;
+            bottom: -5px; width: 100%; height: 25px;
+            background-image: radial-gradient(circle, #fff 40%, #ddd 55%, transparent 65%);
+            background-size: 10px 10px;
             background-repeat: repeat-x;
-            background-position: center;
-            border-radius: 50% / 100%; /* Deep curve to follow the bottom edge */
+            border-radius: 50% / 100%; 
             z-index: 116;
         }
 
-        .icing-drip {
-            position: absolute;
-            top: -5px;
-            width: 100%;
-            height: 20px;
-            background-image: radial-gradient(circle, #fff 50%, transparent 55%);
-            background-size: 20px 20px;
-            background-repeat: repeat-x;
-            border-radius: 50% / 20%;
-            z-index: 121;
-        }
+        .bow::after { content: '🎀'; position: absolute; font-size: 50px; bottom: 60px; left: 70px; z-index: 150; }
+        .candle { position: absolute; bottom: 165px; width: 8px; height: 30px; background: white; z-index: 140; border-top: 5px solid var(--ribbon-color); }
 
-        .ribbon {
-            position: absolute;
-            bottom: 15%; /* Positioned near the bottom of the tier */
-            width: 100%;
-            height: 40%; /* Ribbon height */
-            background: var(--ribbon-color);
-            border-radius: 50% / 30%; /* Curved to match the cake's roundness */
-            transform: scale(1.1, 0.5); /* Flattens and widens to wrap around */
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .bow::after { 
-            content: '🎀'; 
-            position: absolute; 
-            font-size: 50px; 
-            top: 75px; 
-            left: 75px; 
-            z-index: 150;
-            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
-        }
-        
-        .candle { 
-            position: absolute; 
-            bottom: 165px; 
-            width: 8px; 
-            height: 30px; 
-            background: repeating-linear-gradient(45deg, #fff, #fff 5px, var(--ribbon-color) 5px, var(--ribbon-color) 10px); 
-            z-index: 140; 
-            border-radius: 2px;
-        }
-        .flame { position: absolute; top: -12px; left: -2px; width: 10px; height: 14px; background: #ffca28; border-radius: 50%; box-shadow: 0 0 10px #ffca28; animation: flicker 0.1s infinite alternate; }
-
-        @keyframes flicker { from { transform: scale(1); } to { transform: scale(1.1); } }
-
-        /* --- FOLDED NOTES ON TABLE --- */
+        /* --- CLICKABLE NOTES --- */
         .folded-note {
             position: absolute;
-            width: 50px;
-            height: 35px;
-            z-index: 20;
+            width: 60px; /* Larger hit area for mobile fingers */
+            height: 45px;
+            z-index: 50;
             cursor: pointer;
             border: 1px solid #e0dcd0;
-            box-shadow: 2px 4px 5px rgba(0,0,0,0.1);
-            transition: 0.3s;
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .note-right { right: 150px; background: var(--note-paper); transform: rotateX(40deg) rotateZ(-10deg); }
-        .note-right::after { content: '❤'; color: var(--ribbon-color); font-size: 12px; }
+        .note-left { left: 8%; top: 220px; background: #fff; transform: rotateX(45deg) rotateZ(15deg); }
+        .note-right { right: 8%; top: 220px; background: var(--note-paper); transform: rotateX(45deg) rotateZ(-15deg); }
+        
+        .folded-note:active { transform: scale(0.9) rotateX(45deg); }
 
-        .note-left { left: 150px; background: #f0f0f0; transform: rotateX(40deg) rotateZ(10deg); border: 1px solid #999; }
-        .note-left::after { content: 'W'; font-family: 'Playfair Display', serif; font-weight: bold; font-size: 14px; }
-
-        .folded-note:hover { transform: translateY(-5px) rotateX(40deg); }
-
-        /* --- POPUP OVERLAYS --- */
+        /* --- OVERLAYS --- */
         .note-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            display: none; position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 1000;
+            justify-content: center; align-items: center;
+            padding: 15px; box-sizing: border-box;
         }
 
-        /* --- WHISTLEDOWN MODAL (BASED ON IMAGE) --- */
         .whistledown-paper {
             background-color: var(--whistledown-bg);
-            width: 450px;
-            padding: 55px 45px;
-            border: 1.5px solid #000;
-            outline: 5px double #000;
-            outline-offset: -15px;
-            position: relative;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-            animation: openNote 0.5s ease-out;
-            color: #1a1a1a;
+            width: 100%; max-width: 450px;
+            padding: 35px 25px;
+            border: 1px solid #000;
+            outline: 5px double #000; outline-offset: -12px;
+            box-sizing: border-box;
+            animation: popIn 0.4s ease;
         }
 
-        @keyframes openNote { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        .w-logo-area { display: flex; justify-content: center; margin-bottom: 10px; }
-        .w-silhouette-circle {
-            width: 80px; 
-            height: 80px;
-            border: 2px solid #000;
-            border-radius: 50%;
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            background: white;
-            position: relative;
-            z-index: 2;
-            overflow: hidden; /* This clips the silhouette to the circle edges */
+        .w-silhouette {
+            width: 70px; height: 70px; background: #000; margin: 0 auto 10px;
+            -webkit-mask-image: url('https://img.icons8.com/ios-filled/100/000000/woman-profile.png');
+            mask-image: url('https://img.icons8.com/ios-filled/100/000000/woman-profile.png');
+            -webkit-mask-size: contain; mask-repeat: no-repeat; mask-position: center;
         }
 
-        .w-silhouette-circle::before {
-            content: '';
-            position: absolute;
-            width: 120%;
-            height: 120%;
-            border: 1px double #000;
-            border-radius: 50%;
-            opacity: 0.4;
-            z-index: 1;
-        }
+        .w-columns { display: flex; gap: 20px; text-align: justify; font-size: 15px; line-height: 1.4; }
 
-        /* Adjusted to fill the space */
-        .w-silhouette-circle::after { 
-            content: '👤'; 
-            font-size: 85px; /* Increased size to fill the 80px circle */
-            filter: brightness(0); 
-            line-height: 1;
-            margin-top: 15px; /* Adjusts the head position within the frame */
-            position: relative;
-            z-index: 3;
-        }
-
-        .w-header { text-align: center; font-family: 'Playfair Display', serif; }
-        .w-header h1 { font-style: italic; font-size: 32px; margin: 0; font-weight: 400; }
-        .w-header .sub-title { letter-spacing: 5px; font-size: 14px; font-weight: bold; margin-top: 5px; text-transform: uppercase; }
-
-        .w-divider { height: 2px; background: #000; margin: 20px 0; width: 100%; }
-
-        .w-columns {
-            display: flex;
-            gap: 25px;
-            text-align: justify;
-            font-family: 'EB Garamond', serif;
-            font-size: 16px;
-            line-height: 1.5;
-        }
-        .w-col { flex: 1; }
-
-        .w-signature {
-            margin-top: 35px;
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 18px;
+        .pink-note {
+            background: var(--note-paper);
+            width: 100%; max-width: 320px;
+            padding: 30px; border: 2px solid var(--cake-pink);
+            text-align: center; border-radius: 10px;
         }
 
         .close-btn {
-            display: block;
-            margin: 30px auto 0;
-            background: #000;
-            color: #fff;
-            border: none;
-            padding: 8px 25px;
-            cursor: pointer;
-            font-family: 'EB Garamond', serif;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            display: block; margin: 20px auto 0;
+            background: #000; color: #fff; border: none;
+            padding: 12px 30px; border-radius: 5px; font-weight: bold;
         }
 
-        /* --- ORIGINAL NOTE MODAL --- */
-        .pink-note {
-            background: var(--note-paper);
-            width: 300px;
-            padding: 40px;
-            border: 2px solid var(--cake-pink);
-            text-align: center;
-            animation: openNote 0.5s ease-out;
+        /* --- MOBILE ADJUSTMENTS --- */
+        @media (max-width: 500px) {
+            .table-scene { transform: scale(0.85); }
+            .w-columns { flex-direction: column; }
+            .w-header h1 { font-size: 24px; }
+            .folded-note { width: 70px; height: 50px; } /* Even bigger on tiny screens */
         }
     </style>
 </head>
 <body>
 
     <div class="table-scene">
-        <div class="table-leg-container">
-            <div class="leg-column"></div>
-            <div class="leg-base"></div>
-        </div>
         <div class="cloth-skirt"></div>
         <div class="table-cloth-top"></div>
 
-        <div class="folded-note note-left" id="miniLeft"></div>
-        <div class="folded-note note-right" id="miniRight"></div>
+        <div class="folded-note note-left" id="btnLeft"><strong>W</strong></div>
+        <div class="folded-note note-right" id="btnRight"><strong style="color:var(--ribbon-color)">❤</strong></div>
 
         <div class="cake-anchor">
             <div class="cake-plate"></div>
-            
             <div class="cake-layer layer-bottom">
                 <div class="ribbon"></div>
-                <div class="icing-drip"></div>
                 <div class="pearl-row"></div>
             </div>
-            
             <div class="cake-layer layer-top">
-                <div class="icing-drip"></div>
-                <div class="ribbon" style="height: 30%; bottom: 10%;"></div>
+                <div class="ribbon" style="height:10px; bottom:15%;"></div>
+                <div class="pearl-row" style="height:15px;"></div>
             </div>
-            
             <div class="bow"></div>
-            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"></div>
         </div>
     </div>
 
     <div class="note-overlay" id="overlayLeft">
         <div class="whistledown-paper">
-            <div class="w-logo-area">
-                <div class="w-silhouette-circle"></div>
+            <div class="w-silhouette"></div>
+            <div style="text-align:center;">
+                <h1 style="font-family:'Playfair Display'; font-style:italic; margin:0;">Lady Whistledown's</h1>
+                <div style="letter-spacing:4px; font-weight:bold; font-size:12px; margin-bottom:15px;">SOCIETY PAPERS</div>
             </div>
-            <div class="w-header">
-                <h1>Lady Whistledown's</h1>
-                <div class="sub-title">Society Papers</div>
-            </div>
-            <div class="w-divider"></div>
+            <hr style="border:0.5px solid #000;">
             <div class="w-columns">
-            <div class="w-col">
-                Dearest Gentle Reader, it has come to this author’s attention that a most celebratory occasion is taking place today. While the Ton is usually occupied with the latest whispers of scandal, we must pause to recognize a true rarity—a diamond of the first water, the incomparable Ms. Angeline. 
+                <div class="w-col">
+                    Dearest Gentle Reader, it has come to this author’s attention that a most celebratory occasion is taking place today for the incomparable Ms. Angeline. 
+                </div>
+                <div class="w-col">
+                    May your day be filled with as much splendor as a Royal Ball. We shall be watching you most closely. <br><br>
+                    Yours Truly, <strong>Lady Whistledown</strong>
+                </div>
             </div>
-            <div class="w-col">
-                One finds that such brilliance deserves nothing less than the most lavish of festivities. May your day be filled with as much splendor as a Royal Ball, and may no secret be kept from you—except, perhaps, for the contents of your next gift. We shall be watching you most closely.
-            </div>
-        </div>
-            <div class="w-signature">
-                Yours Truly, <br>
-                <strong>Lady Whistledown</strong>
-            </div>
-            <button class="close-btn" id="closeLeft">Close</button>
+            <button class="close-btn" onclick="closeAll()">CLOSE</button>
         </div>
     </div>
 
     <div class="note-overlay" id="overlayRight">
         <div class="pink-note">
-            <h2 style="color: var(--ribbon-color); font-style: italic;">Happy Birthday Babyyyy!</h2>
-            <div class="wish-text">
-                "Wish u all the best, sehat selalu, makin cantik, makin priti, makin cutie, makin disayang org sekitar, rezeki lancar, kuliah lancar, and may everything that u wish and hope for comes true..."
+            <h2 style="color: var(--ribbon-color); font-style: italic; margin-top:0;">Happy Birthday Babyyyy!</h2>
+            <div style="font-size: 16px; line-height: 1.5; color: #333;">
+                "Wish u all the best, sehat selalu, makin cantik, makin priti, makin cutie, rezeki lancar, kuliah lancar..."
                 <br><br>
-                "Hopefully i was able to made u happy throughout ur time when ure 22 y.o, and looking forward to continue that till the end, hopefully this will be the memorable cute things to start ur 23 y.o journey."
-                <br><br>
-                <strong>Once again, happy birthday and i love u alwayssss 😗😗😗</strong>
+                <strong>I love u alwayssss 😗😗😗</strong>
             </div>
-            <button class="close-btn" id="closeRight" style="background: var(--cake-pink); border-radius: 20px;">Close</button>
+            <button class="close-btn" onclick="closeAll()" style="background:var(--cake-pink); color:#d81b60">CLOSE</button>
         </div>
     </div>
 
     <script>
-        const miniL = document.getElementById('miniLeft');
-        const miniR = document.getElementById('miniRight');
         const overL = document.getElementById('overlayLeft');
         const overR = document.getElementById('overlayRight');
-        const closeL = document.getElementById('closeLeft');
-        const closeR = document.getElementById('closeRight');
 
-        // Opening Notes
-        miniL.onclick = () => overL.style.display = 'flex';
-        miniR.onclick = () => overR.style.display = 'flex';
+        document.getElementById('btnLeft').addEventListener('click', () => overL.style.display = 'flex');
+        document.getElementById('btnRight').addEventListener('click', () => overR.style.display = 'flex');
 
-        // Closing Notes
-        closeL.onclick = () => overL.style.display = 'none';
-        closeR.onclick = () => overR.style.display = 'none';
+        function closeAll() {
+            overL.style.display = 'none';
+            overR.style.display = 'none';
+        }
 
-        // Background Click to Close
+        // Close when clicking outside the paper
         window.onclick = (e) => {
-            if (e.target === overL) overL.style.display = 'none';
-            if (e.target === overR) overR.style.display = 'none';
+            if (e.target.className === 'note-overlay') closeAll();
         };
     </script>
 </body>
