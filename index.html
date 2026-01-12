@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birthday Surprise for Ms. Angeline</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -22,43 +22,41 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             margin: 0;
-            padding: 10px;
             font-family: 'EB Garamond', serif;
-            overflow: hidden; /* Prevents bounce scrolling on mobile */
-            box-sizing: border-box;
+            overflow: hidden;
         }
 
-        /* --- RESPONSIVE TABLE SCENE --- */
         .table-scene {
             position: relative;
-            width: 100%;
-            max-width: 500px;
-            height: 500px;
+            width: 600px; /* Original fixed width for composition */
+            height: 600px;
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1000px;
         }
 
+        /* --- RESTORED TABLE PLACEMENT --- */
         .table-cloth-top {
             position: absolute;
-            width: 350px; height: 350px;
+            width: 400px;
+            height: 400px;
             background: var(--cloth-main);
             background-image: radial-gradient(var(--pattern-accent) 1.2px, transparent 1.2px);
             background-size: 22px 22px;
             border-radius: 50%;
             transform: rotateX(65deg);
             z-index: 10;
-            top: 60px;
+            top: 70px;
             box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
 
         .cloth-skirt {
             position: absolute;
-            top: 220px;
-            width: 348px; height: 140px;
+            top: 255px;
+            width: 398px;
+            height: 160px;
             background: var(--cloth-main);
             background-image: radial-gradient(var(--pattern-accent) 1.2px, transparent 1.2px);
             background-size: 22px 22px;
@@ -67,10 +65,10 @@
             clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 95% 100%, 90% 80%, 85% 100%, 80% 80%, 75% 100%, 70% 80%, 65% 100%, 60% 80%, 55% 100%, 50% 80%, 45% 100%, 40% 80%, 35% 100%, 30% 80%, 25% 100%, 20% 80%, 15% 100%, 10% 80%, 5% 100%, 0% 80%);
         }
 
-        /* --- PRETTY CAKE --- */
+        /* --- RESTORED CAKE PLACEMENT --- */
         .cake-anchor {
             position: absolute;
-            top: 110px;
+            top: 120px;
             z-index: 100;
             width: 200px;
             display: flex;
@@ -80,8 +78,8 @@
         .cake-plate {
             position: absolute;
             top: 40px;
-            width: 210px; height: 180px;
-            background: #fff;
+            width: 220px; height: 190px;
+            background: radial-gradient(circle, #ffffff 60%, #f0f0f0 100%);
             border-radius: 50%;
             transform: rotateX(65deg);
             border: 5px solid var(--pattern-accent);
@@ -99,66 +97,72 @@
 
         .ribbon {
             position: absolute;
-            bottom: 15%; width: 100%; height: 15px;
+            bottom: 15%; width: 100%; height: 35%;
             background: var(--ribbon-color);
-            border-radius: 50% / 50%; 
-            transform: scale(1.1);
+            border-radius: 50% / 30%;
+            transform: scale(1.1, 0.5);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .pearl-row {
             position: absolute;
             bottom: -5px; width: 100%; height: 25px;
-            background-image: radial-gradient(circle, #fff 40%, #ddd 55%, transparent 65%);
-            background-size: 10px 10px;
+            background-image: radial-gradient(circle, #fff 40%, #ddd 50%, transparent 60%);
+            background-size: 12px 12px;
             background-repeat: repeat-x;
-            border-radius: 50% / 100%; 
+            border-radius: 50% / 100%;
             z-index: 116;
         }
 
-        .bow::after { content: '🎀'; position: absolute; font-size: 50px; bottom: 60px; left: 70px; z-index: 150; }
+        .bow::after { content: '🎀'; position: absolute; font-size: 50px; top: 75px; left: 75px; z-index: 150; }
         .candle { position: absolute; bottom: 165px; width: 8px; height: 30px; background: white; z-index: 140; border-top: 5px solid var(--ribbon-color); }
 
-        /* --- CLICKABLE NOTES --- */
+        /* --- RESTORED NOTE PLACEMENT & TAPPABILITY --- */
         .folded-note {
             position: absolute;
-            width: 60px; /* Larger hit area for mobile fingers */
-            height: 45px;
+            width: 55px;
+            height: 40px;
             z-index: 50;
             cursor: pointer;
             border: 1px solid #e0dcd0;
-            box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
+            box-shadow: 2px 4px 5px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            -webkit-tap-highlight-color: transparent;
+            transition: 0.3s;
         }
 
-        .note-left { left: 8%; top: 220px; background: #fff; transform: rotateX(45deg) rotateZ(15deg); }
-        .note-right { right: 8%; top: 220px; background: var(--note-paper); transform: rotateX(45deg) rotateZ(-15deg); }
-        
-        .folded-note:active { transform: scale(0.9) rotateX(45deg); }
+        .note-left { left: 150px; background: #fff; transform: rotateX(40deg) rotateZ(10deg); top: 320px; }
+        .note-right { right: 150px; background: var(--note-paper); transform: rotateX(40deg) rotateZ(-10deg); top: 320px; }
+
+        .folded-note:hover { transform: translateY(-5px) rotateX(40deg); }
+
+        /* --- MOBILE SCALING --- */
+        @media (max-width: 600px) {
+            .table-scene { transform: scale(0.7); } /* Scales entire scene to fit phone */
+        }
 
         /* --- OVERLAYS --- */
         .note-overlay {
             display: none; position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); z-index: 1000;
+            background: rgba(0,0,0,0.6); z-index: 1000;
             justify-content: center; align-items: center;
-            padding: 15px; box-sizing: border-box;
+            padding: 20px;
         }
 
         .whistledown-paper {
             background-color: var(--whistledown-bg);
             width: 100%; max-width: 450px;
-            padding: 35px 25px;
-            border: 1px solid #000;
-            outline: 5px double #000; outline-offset: -12px;
+            padding: 50px 30px;
+            border: 1.5px solid #000;
+            outline: 5px double #000; outline-offset: -15px;
+            position: relative;
             box-sizing: border-box;
-            animation: popIn 0.4s ease;
+            animation: open 0.4s ease;
         }
 
-        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes open { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
         .w-silhouette {
             width: 70px; height: 70px; background: #000; margin: 0 auto 10px;
@@ -167,27 +171,21 @@
             -webkit-mask-size: contain; mask-repeat: no-repeat; mask-position: center;
         }
 
-        .w-columns { display: flex; gap: 20px; text-align: justify; font-size: 15px; line-height: 1.4; }
+        .w-columns { display: flex; gap: 20px; text-align: justify; font-size: 15px; }
+
+        @media (max-width: 500px) { .w-columns { flex-direction: column; } }
 
         .pink-note {
             background: var(--note-paper);
-            width: 100%; max-width: 320px;
+            width: 100%; max-width: 300px;
             padding: 30px; border: 2px solid var(--cake-pink);
-            text-align: center; border-radius: 10px;
+            text-align: center; box-sizing: border-box;
         }
 
         .close-btn {
             display: block; margin: 20px auto 0;
             background: #000; color: #fff; border: none;
-            padding: 12px 30px; border-radius: 5px; font-weight: bold;
-        }
-
-        /* --- MOBILE ADJUSTMENTS --- */
-        @media (max-width: 500px) {
-            .table-scene { transform: scale(0.85); }
-            .w-columns { flex-direction: column; }
-            .w-header h1 { font-size: 24px; }
-            .folded-note { width: 70px; height: 50px; } /* Even bigger on tiny screens */
+            padding: 10px 25px; cursor: pointer;
         }
     </style>
 </head>
@@ -207,8 +205,8 @@
                 <div class="pearl-row"></div>
             </div>
             <div class="cake-layer layer-top">
-                <div class="ribbon" style="height:10px; bottom:15%;"></div>
-                <div class="pearl-row" style="height:15px;"></div>
+                <div class="ribbon" style="height: 30%; bottom: 10%;"></div>
+                <div class="pearl-row" style="height: 15px;"></div>
             </div>
             <div class="bow"></div>
             <div class="candle"></div>
@@ -222,47 +220,39 @@
                 <h1 style="font-family:'Playfair Display'; font-style:italic; margin:0;">Lady Whistledown's</h1>
                 <div style="letter-spacing:4px; font-weight:bold; font-size:12px; margin-bottom:15px;">SOCIETY PAPERS</div>
             </div>
-            <hr style="border:0.5px solid #000;">
             <div class="w-columns">
                 <div class="w-col">
                     Dearest Gentle Reader, it has come to this author’s attention that a most celebratory occasion is taking place today for the incomparable Ms. Angeline. 
                 </div>
                 <div class="w-col">
-                    May your day be filled with as much splendor as a Royal Ball. We shall be watching you most closely. <br><br>
+                    May your day be filled with as much splendor as a Royal Ball. <br><br>
                     Yours Truly, <strong>Lady Whistledown</strong>
                 </div>
             </div>
-            <button class="close-btn" onclick="closeAll()">CLOSE</button>
+            <button class="close-btn" onclick="document.getElementById('overlayLeft').style.display='none'">CLOSE</button>
         </div>
     </div>
 
     <div class="note-overlay" id="overlayRight">
         <div class="pink-note">
-            <h2 style="color: var(--ribbon-color); font-style: italic; margin-top:0;">Happy Birthday Babyyyy!</h2>
-            <div style="font-size: 16px; line-height: 1.5; color: #333;">
+            <h2 style="color: var(--ribbon-color); font-style: italic;">Happy Birthday Babyyyy!</h2>
+            <div style="font-size: 15px; line-height: 1.4;">
                 "Wish u all the best, sehat selalu, makin cantik, makin priti, makin cutie, rezeki lancar, kuliah lancar..."
                 <br><br>
                 <strong>I love u alwayssss 😗😗😗</strong>
             </div>
-            <button class="close-btn" onclick="closeAll()" style="background:var(--cake-pink); color:#d81b60">CLOSE</button>
+            <button class="close-btn" onclick="document.getElementById('overlayRight').style.display='none'" style="background:var(--cake-pink);">CLOSE</button>
         </div>
     </div>
 
     <script>
-        const overL = document.getElementById('overlayLeft');
-        const overR = document.getElementById('overlayRight');
-
-        document.getElementById('btnLeft').addEventListener('click', () => overL.style.display = 'flex');
-        document.getElementById('btnRight').addEventListener('click', () => overR.style.display = 'flex');
-
-        function closeAll() {
-            overL.style.display = 'none';
-            overR.style.display = 'none';
-        }
-
-        // Close when clicking outside the paper
+        document.getElementById('btnLeft').onclick = () => document.getElementById('overlayLeft').style.display = 'flex';
+        document.getElementById('btnRight').onclick = () => document.getElementById('overlayRight').style.display = 'flex';
+        
         window.onclick = (e) => {
-            if (e.target.className === 'note-overlay') closeAll();
+            if (e.target.className === 'note-overlay') {
+                e.target.style.display = 'none';
+            }
         };
     </script>
 </body>
